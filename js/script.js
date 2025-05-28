@@ -1,6 +1,44 @@
 // Script para o site Alojamentos GAMA
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Toggle do menu de reserva em dispositivos móveis
+    const reservaBtns = document.querySelectorAll('.reserva-btn');
+    const dropdowns = document.querySelectorAll('.reserva-dropdown');
+    
+    reservaBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const dropdown = this.nextElementSibling;
+            
+            // Fecha todos os outros dropdowns abertos
+            dropdowns.forEach(d => {
+                if (d !== dropdown) {
+                    d.style.display = 'none';
+                }
+            });
+            
+            // Alterna o dropdown atual
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            } else {
+                dropdown.style.display = 'block';
+            }
+        });
+    });
+    
+    // Fecha o dropdown ao clicar fora dele
+    document.addEventListener('click', function() {
+        dropdowns.forEach(dropdown => {
+            dropdown.style.display = 'none';
+        });
+    });
+    
+    // Impede que o clique no dropdown feche o menu
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
     // Efeito de scroll na navegação
     const header = document.querySelector('header');
     const menuBtn = document.querySelector('.menu-btn');
